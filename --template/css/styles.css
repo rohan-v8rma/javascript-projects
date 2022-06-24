@@ -1,0 +1,7 @@
+.no-margin-and-padding {
+    margin: 0;
+    padding: 0;
+}
+/* 
+It is essential that we specify this as the value of the class attribute for both 'html' and 'body' to ensure that margin and padding is definitely removed.
+*/
