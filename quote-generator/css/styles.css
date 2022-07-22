@@ -20,9 +20,24 @@ body {
     font-weight: 700;
     color: black;
     background-color: white;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' width='80' height='80'%3E%3Cg fill='%231e00ff' fill-opacity='0.35'%3E%3Cpath d='M0 0h80v80H0V0zm20 20v40h40V20H20zm20 35a15 15 0 1 1 0-30 15 15 0 0 1 0 30z' opacity='.5'%3E%3C/path%3E%3Cpath d='M15 15h50l-5 5H20v40l-5 5V15zm0 50h50V15L80 0v80H0l15-15zm32.07-32.07l3.54-3.54A15 15 0 0 1 29.4 50.6l3.53-3.53a10 10 0 1 0 14.14-14.14zM32.93 47.07a10 10 0 1 1 14.14-14.14L32.93 47.07z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+    
+
+    text-align: center;
+
+    display: flex;
+    /* We have made the body as a flex container here, making the 'quote-container' div within it, a responsive flexbox. 
+    * The 'quote-container' div contains multiple other divs (by-default block level elements) which occupy as much space as needed and the 'quote-container' growing or shrinking when required. */
+
+    flex-direction: column;
+    justify-content: center;
+    /* This keeps the only element ('quote-container' div) in the center of the main axis (vertical) */
+    align-items: center;
 
     
+    
+    /* TODO: Find out how this works. If a div contains a span element containing text and an img element, are both elements centered horizontally because of this? */    
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' width='80' height='80'%3E%3Cg fill='%231e00ff' fill-opacity='0.35'%3E%3Cpath d='M0 0h80v80H0V0zm20 20v40h40V20H20zm20 35a15 15 0 1 1 0-30 15 15 0 0 1 0 30z' opacity='.5'%3E%3C/path%3E%3Cpath d='M15 15h50l-5 5H20v40l-5 5V15zm0 50h50V15L80 0v80H0l15-15zm32.07-32.07l3.54-3.54A15 15 0 0 1 29.4 50.6l3.53-3.53a10 10 0 1 0 14.14-14.14zM32.93 47.07a10 10 0 1 1 14.14-14.14L32.93 47.07z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
 }
 
 .quote-container {
@@ -32,20 +47,14 @@ body {
 
     box-sizing: border-box; 
     /* this property helps accomodate any padding/margin we add into the specified width/height for the div, which is 100vh in this case */
-    height: 50vh; 
+    /* height: 50vh;  */
     padding: 5% 10%;  
     /* used to center everything */
 
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    text-align: center;
-    /* TODO: Find out how this works. If a div contains a span element containing text and an img element, are both elements centered horizontally because of this? */    
-  
-    margin: 25vh 10%;
+    /* display: flex; */
+    
+    /* margin: 25vh 10%; */
 
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.5);
