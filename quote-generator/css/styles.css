@@ -5,14 +5,12 @@
     padding: 0;
     box-sizing: border-box;
 }
-/* We have used the CSS universal selector here */
+/* We have used the CSS universal selector here and removed default padding and margin from all classes here */
 
 .full-height {
     height: 100vh;
 }
-/* 
-It is essential that we specify this as the value of the class attribute for both 'html' and 'body' to ensure that margin and padding is definitely removed.
-*/
+
 body {
     min-height: 100vh;
 
@@ -88,6 +86,52 @@ Observe how the 'icons' obtained from the font awesome are dependent on the font
     font-style: italic;
 }
 
+.button-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+button {
+    cursor: pointer;
+    /* This makes the cursor appear as a 'hand with a finger pointing' upon hovering */
+    font-size: 1.2rem;
+    height: 2.5rem;
+    /* This is useful for keeping the size of the buttons in accordance with the root font size which is dynamic in nature across devices. */
+    border: none;
+    border-radius: 10px;
+    color: white;
+    /*! background-color: #333; */
+    background: #333;
+    /* This is a CSS property which can take numerous parameters for modifying the background characteristics, as opposed to just the `background-color` property */
+    padding: 0.5rem 1.8rem;
+    box-shadow: 0 0.3rem 0 rgba(130, 130, 130, 0.65);
+    /* Only a vertical offset given */
+}
+
+/* THe code below gives a cool transition where button is pressed immediately but slowly rises upon release
+? This is because, when we click on a button, it becomes :active and transition-duration becomes 0, immediately showing the change where the button appears to be depressed into the page.
+? Upon release, it immediately goes back to :hover and transition duration becomes 0.5 seconds, leading to the button slowly rising back to its original position.
+*/
+
+button:hover {
+    transition-duration: 0.5s;
+    color: #333;
+    background: white;
+    /* padding: 0.5rem 1.8rem; */
+    box-shadow: 0 0.3rem 0 rgba(70, 70, 70);
+}
+
+button:active {
+    transition-duration: 0s;
+    transform: translate(0, 0.3rem);
+    box-shadow: 0 0.1rem 0 rgba(70, 70, 70);
+}
+
+.twitter-button:hover {
+    color: #3ba1f3;
+}
 /* Media Query */
 
 /* *Note how our max width is 900px. 
