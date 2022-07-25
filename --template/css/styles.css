@@ -1,7 +1,10 @@
-.no-margin-and-padding {
+@import url('https://fonts.googleapis.com/css2?family=Fascinate&display=swap');
+/* This is a google font URL. Any font from https://fonts.google.com/ can be chosen */
+
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
-/* 
-It is essential that we specify this as the value of the class attribute for both 'html' and 'body' to ensure that margin and padding is definitely removed.
-*/
+/* We have used the CSS universal selector here and removed default padding and margin from all classes here */
