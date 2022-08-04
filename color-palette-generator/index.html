@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Create a Palette - Rainboww</title>
 
     
-    <link rel="icon" type="image/png" href="https://www.google.com/s2/favicons?domain=css-tricks.com">
+    <link rel="icon" type="image/png" href="./images/favicon.ico">
     <!-- 
         Here, we are using google's favicon service to get the favicon of any pre-existing website
         by entering the name of the website as the value of the `domain` key in the query string of the below url.
@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <script src="script.js"></script>
     
     <div class="color-palette-container">
         <div class="color-box" id="color-box-1">
@@ -37,5 +36,12 @@
             
         </div>
     </div>
+
+    <script src="script.js"></script>     
+    <!-- It is important for the script tag to be placed as the last thing in the body tag. 
+    
+    Otherwise, the JS would run before the elements are rendered to the DOM.
+    
+    Resultingly, the array we create/any other operation we perform from the HTMLCollection of elements of a certain class name would be empty because the DOM wouldn't be containing the required elements at the time of array creation. -->
 </body>
 </html>

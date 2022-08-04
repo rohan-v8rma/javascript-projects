@@ -27,6 +27,13 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    
+    
     <script src="script.js"></script>
+    <!-- It is important for the script tag to be placed as the last thing in the body tag. 
+    
+    Otherwise, the JS would run before the elements are rendered to the DOM.
+    
+    Resultingly, the array we create/any other operation we perform from the HTMLCollection of elements of a certain class name would be empty because the DOM wouldn't be containing the required elements at the time of array creation. -->
 </body>
 </html>
