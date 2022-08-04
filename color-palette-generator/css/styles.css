@@ -58,7 +58,7 @@ button {
 }
 
 .color-box:hover button { 
-    /* Changing the properties of a child element upon hovering on the parent div. */
+    /* Changing the properties of a button elements (child element) upon hovering on a `color-box` element (parent div). */
     display: block;
 }
 
@@ -85,7 +85,13 @@ button:focus {
     background-color: purple;
 }
 /* DESIGN Mobile first */
-@media only screen and (min-width: 1068px) and (max-height: 1080px) {
+@media only screen and (min-width: 800px) and (max-height: 1440px) {
+
+    /* 
+    We added a max height of 1440px (Height of a 1440p monitor) so that mobile devices, which usually have a minimum height of 1920px aren't affected by this media query 
+    
+    The min-width is set considering that the distance between the hex code and the icons starts look abnormally large beyond that width. So at that point, vertical color bars start being displayed (on computer screens)
+    */
     .color-palette-container {
         flex-direction: row;
     }
