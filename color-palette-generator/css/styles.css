@@ -47,10 +47,10 @@ button {
 
     cursor: pointer;
     /* This makes the cursor appear as a 'hand with a finger pointing' upon hovering */
-    font-size: 1.2rem;
-    height: 2.5rem;
-    width: 2.5rem;
-    padding: 0.25rem;
+    font-size: 1.5rem;
+    height: 3rem;
+    width: 3rem;
+    /* padding: 0.25rem; */
     /* This is useful for keeping the size of the buttons in accordance with the root font size which is dynamic in nature across devices. */
     border: none;
     border-radius: 10px;
@@ -63,10 +63,10 @@ button {
 }
 
 button:focus {
-    font-size:1.45rem;
+    font-size:1.8rem;
     height: 3rem;
-    /* width: 3rem; */
-    padding: 0rem;
+    width: 3rem;
+    /* padding: 0.1rem; */
 }
 
 #color-box-1 {

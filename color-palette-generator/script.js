@@ -4,6 +4,7 @@ TODO
 Add event listener for keyboard to change colors
 Add event listener for button click
 Detect if shade is too dark, and change hex code text color to white. Or invert the color
+
 */
 
 function hexGen() { // This function returns a string like "#287EDF" which can be used to set the backgroundColor of an element.
@@ -41,19 +42,45 @@ function hexInvert(hexCode) {
     return invertedHexCode;
   }
 
+// Function for checking whether the color is too dark for black text to be visible.
+function darknessTest(hexCode) {
+    let sum = 0;
+
+    for(let digit = 1; digit <= 6; digit++) {
+
+        if ( ( 65 <= hexCode.charCodeAt(digit) ) && ( hexCode.charCodeAt(digit) <= 70 ) ) {
+            sum += ( 16 ** (digit % 2) ) * ( hexCode[digit].charCodeAt(0) - 65 + 10 );
+        }
+        else {
+            sum += ( 16 ** (digit % 2) ) *  parseInt(hexCode[digit]);
+        }
+    }
+    if(sum > 300) { //Since the sum of the digits of #FFFFFF (white) is 255+255+255 = 765 and the sum of the digits of #000000 is 0, we keep an optimal number of 300 as the threshold.
+        return 0;
+    }
+    else {
+        return 1;
+    }
+}
 
 function palletteChange() {
-    let hexAssign, hexInvertAssign;
+    let hexAssign
+    let div;
+    let fontColor;
 
     for(let box = 1; box <= 5; box++) {
         hexAssign = hexGen();
         hexInvertAssign = hexInvert(hexAssign);
         
+        div = document.getElementById("color-box-" + box);
+
         // Changing the background color of the color-box
-        document.getElementById("color-box-" + box).style.backgroundColor = hexAssign;
+        div.style.backgroundColor = hexAssign;
+
+        div = document.getElementById("hex-" + box);
 
         // Changing the hex code displayed on the color-box
-        document.getElementById("hex-" + box).textContent = hexAssign.slice(1, 7); // Removing the hash using slicing
+        div.textContent = hexAssign.slice(1, 7); // Removing the hash using slicing
 
         /*
         ! NOTE that if we tried to change the textContent of id 'color-box-X' directly, the whole 'color-hex-code' div Node would be removed and a simple hex-code would be inserted in its place. 
@@ -62,6 +89,23 @@ function palletteChange() {
 
         ? This is because if we set the textContent property of a particular element, all child text nodes are replaced by only one new text node.
         */
+
+        // TODO : Can steps be reduced here
+        if(darknessTest(hexAssign)) {
+            fontColor = "white";
+        }
+        else {
+            fontColor = "black";
+        }      
+
+        div = document.getElementById("lock-" + box);
+        div.style.color = fontColor;
+
+        div = document.getElementById("copy-" + box);
+        div.style.color = fontColor;
+
+        div = document.getElementById("hex-" + box);
+        div.style.color = fontColor;
     };
 }
 
