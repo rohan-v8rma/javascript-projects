@@ -1,9 +1,8 @@
 /*
 TODO
 
-Add event listener for keyboard to change colors
 Add event listener for button click
-Detect if shade is too dark, and change hex code text color to white. Or invert the color
+Function for adding a color box
 
 */
 
@@ -55,11 +54,11 @@ function darknessTest(hexCode) {
             sum += ( 16 ** (digit % 2) ) *  parseInt(hexCode[digit]);
         }
     }
-    if(sum > 300) { //Since the sum of the digits of #FFFFFF (white) is 255+255+255 = 765 and the sum of the digits of #000000 is 0, we keep an optimal number of 300 as the threshold.
+    if(sum > 250) { //Since the sum of the digits of #FFFFFF (white) is 255+255+255 = 765 and the sum of the digits of #000000 is 0, we keep an optimal number of 250 as the threshold.
         return 0;
     }
     else {
-        return 1;
+        return 1; 
     }
 }
 
@@ -98,16 +97,25 @@ function palletteChange() {
             fontColor = "black";
         }      
 
+        div = document.getElementById("color-box-" + box);
+        div.style.color = fontColor;
+
+        // We have to change colors separately for the icons, because font properties of text inside buttons i s
+
         div = document.getElementById("lock-" + box);
         div.style.color = fontColor;
 
         div = document.getElementById("copy-" + box);
         div.style.color = fontColor;
 
-        div = document.getElementById("hex-" + box);
-        div.style.color = fontColor;
     };
 }
 
 palletteChange();
 
+document.addEventListener("keydown", function(event) {
+    if( event.key = " " ) {
+        console.log("Space bar pressed.");
+        palletteChange();
+    }
+})
