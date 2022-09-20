@@ -6,6 +6,8 @@ Function for adding a color box
 
 */
 
+let no_of_boxes = 5;
+
 function hexGen() { // This function returns a string like "#287EDF" which can be used to set the backgroundColor of an element.
     let hex = "#";
     let digit;
@@ -62,12 +64,32 @@ function darknessTest(hexCode) {
     }
 }
 
+// Function and Array which tells us whether to keep the color of a particular div static or not.
+
+let static = Array(no_of_boxes).fill(0); 
+// 0 indicates element won't be kept static. 
+// 1 indicates element will be kept static.
+
+function staticCheck(arr, num) {
+    if(arr[num - 1] == 1) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 function palletteChange() {
-    let hexAssign
+    let hexAssign;
     let div;
-    let fontColor;
+    let fontColor;    
 
     for(let box = 1; box <= 5; box++) {
+        
+        if(staticCheck(static, box)) {
+            continue;
+        }
+
         hexAssign = hexGen();
         hexInvertAssign = hexInvert(hexAssign);
         
@@ -119,3 +141,40 @@ document.addEventListener("keydown", function(event) {
         palletteChange();
     }
 })
+
+// for-loop for adding event listeners for copy-button clicks. The event is handled by writing the hex-code of the visible color to the user's clipboard.
+
+let copyButton;
+let hexCode;
+
+for(let box = 1; box <= no_of_boxes; box++) {
+    
+    copyButton = document.getElementById("copy-" + box);
+
+    copyButton.addEventListener("click", function() {
+        hexCode = document.getElementById("hex-"+box).innerText;
+        navigator.clipboard.writeText(hexCode);
+    })
+}
+
+// for-loop for adding event listeners for lock-button clicks. The event is handled by 
+
+for(let box = 1; box <= no_of_boxes; box++) {
+    
+    lockButton = document.getElementById("lock-" + box);
+
+    let click = 0; // Each box will have a separate click variable in its lexical environment.
+
+    function LockUnlock() {
+        click++;
+        if (click % 2 == 0) { // When no clicks or EVEN number of clicks are present, the box should NOT be ketp STATIC.
+            static[box - 1] = 0;
+        }
+        else { // When the lock-button is clicked once or an odd number of times, the box should be kept STATIC.
+            static[box - 1] = 1;       
+        }
+        
+    }
+
+    lockButton.addEventListener("click", LockUnlock);
+}
