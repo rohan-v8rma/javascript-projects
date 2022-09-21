@@ -1,12 +1,11 @@
 /*
 TODO
 
-Add event listener for button click
 Function for adding a color box
 
 */
 
-let no_of_boxes = 5;
+let numOfBoxes = 5;
 
 function hexGen() { // This function returns a string like "#287EDF" which can be used to set the backgroundColor of an element.
     let hex = "#";
@@ -66,7 +65,7 @@ function darknessTest(hexCode) {
 
 // Function and Array which tells us whether to keep the color of a particular div static or not.
 
-let static = Array(no_of_boxes).fill(0); 
+let static = Array(numOfBoxes).fill(0); 
 // 0 indicates element won't be kept static. 
 // 1 indicates element will be kept static.
 
@@ -84,21 +83,21 @@ function palletteChange() {
     let div;
     let fontColor;    
 
-    for(let box = 1; box <= 5; box++) {
+    for(let boxIndex = 1; boxIndex <= numOfBoxes; boxIndex++) {
         
-        if(staticCheck(static, box)) {
+        if(staticCheck(static, boxIndex)) {
             continue;
         }
 
         hexAssign = hexGen();
         hexInvertAssign = hexInvert(hexAssign);
         
-        div = document.getElementById("color-box-" + box);
+        div = document.getElementById("color-box-" + boxIndex);
 
         // Changing the background color of the color-box
         div.style.backgroundColor = hexAssign;
 
-        div = document.getElementById("hex-" + box);
+        div = document.getElementById("hex-" + boxIndex);
 
         // Changing the hex code displayed on the color-box
         div.textContent = hexAssign.slice(1, 7); // Removing the hash using slicing
@@ -119,15 +118,15 @@ function palletteChange() {
             fontColor = "black";
         }      
 
-        div = document.getElementById("color-box-" + box);
+        div = document.getElementById("color-box-" + boxIndex);
         div.style.color = fontColor;
 
         // We have to change colors separately for the icons, because font properties of text inside buttons i s
 
-        div = document.getElementById("lock-" + box);
+        div = document.getElementById("lock-" + boxIndex);
         div.style.color = fontColor;
 
-        div = document.getElementById("copy-" + box);
+        div = document.getElementById("copy-" + boxIndex);
         div.style.color = fontColor;
 
     };
@@ -144,34 +143,43 @@ document.addEventListener("keydown", function(event) {
 
 // for-loop for adding event listeners for copy-button clicks. The event is handled by writing the hex-code of the visible color to the user's clipboard.
 
-let copyButton;
 let hexCode;
 
-for(let box = 1; box <= no_of_boxes; box++) {
+for(let boxIndex = 1; boxIndex <= numOfBoxes; boxIndex++) {
     
-    copyButton = document.getElementById("copy-" + box);
+    // We have declared the copyButton variable inside the for-loop, so that each iteration of the for-loop has a separate copyButton variable, and each box has a separate variable, (pointing to that box in the DOM) in the lexical environment of its handler function
+
+    const copyButton = document.getElementById("copy-" + boxIndex);
 
     copyButton.addEventListener("click", function() {
-        hexCode = document.getElementById("hex-"+box).innerText;
+        hexCode = document.getElementById("hex-"+boxIndex).innerText;
         navigator.clipboard.writeText(hexCode);
     })
 }
 
 // for-loop for adding event listeners for lock-button clicks. The event is handled by 
 
-for(let box = 1; box <= no_of_boxes; box++) {
+for(let boxIndex = 1; boxIndex <= numOfBoxes; boxIndex++) {
     
-    lockButton = document.getElementById("lock-" + box);
-
-    let click = 0; // Each box will have a separate click variable in its lexical environment.
+    // We have declared the lockButton variable inside the for-loop, so that each iteration of the for-loop has a separate lockButton variable, and the event listener of each box has a separate variable in the lexical environment of its handler function `LockUnlock`
+    const lockButton = document.getElementById("lock-" + boxIndex);    
 
     function LockUnlock() {
-        click++;
-        if (click % 2 == 0) { // When no clicks or EVEN number of clicks are present, the box should NOT be ketp STATIC.
-            static[box - 1] = 0;
+        
+        // const lockButton = document.getElementById("lock-" + box);
+
+        //! Why does this removal of focus work only on box number 5
+        lockButton.blur(); // Remove focus after click
+        
+        if (static[boxIndex - 1] === 0) { // When the box was non-static, we should make it static.
+            static[boxIndex - 1] = 1;
+    
+            lockButton.style.visibility = "visible";
         }
-        else { // When the lock-button is clicked once or an odd number of times, the box should be kept STATIC.
-            static[box - 1] = 1;       
+        else if (static[boxIndex - 1] === 1) { 
+            static[boxIndex - 1] = 0;
+            
+            lockButton.style.removeProperty("visibility"); //? Removed the property set in the above IF-block
         }
         
     }
