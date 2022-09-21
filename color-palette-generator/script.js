@@ -65,18 +65,10 @@ function darknessTest(hexCode) {
 
 // Function and Array which tells us whether to keep the color of a particular div static or not.
 
-let static = Array(numOfBoxes).fill(0); 
+let isBoxColorLocked = Array(numOfBoxes).fill(false); 
 // 0 indicates element won't be kept static. 
 // 1 indicates element will be kept static.
 
-function staticCheck(arr, num) {
-    if(arr[num - 1] == 1) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
 
 function palletteChange() {
     let hexAssign;
@@ -85,7 +77,7 @@ function palletteChange() {
 
     for(let boxIndex = 1; boxIndex <= numOfBoxes; boxIndex++) {
         
-        if(staticCheck(static, boxIndex)) {
+        if(isBoxColorLocked[boxIndex - 1]) {
             continue;
         }
 
@@ -168,18 +160,20 @@ for(let boxIndex = 1; boxIndex <= numOfBoxes; boxIndex++) {
         
         // const lockButton = document.getElementById("lock-" + box);
 
-        //! Why does this removal of focus work only on box number 5
         lockButton.blur(); // Remove focus after click
         
-        if (static[boxIndex - 1] === 0) { // When the box was non-static, we should make it static.
-            static[boxIndex - 1] = 1;
+        // Inverting whether the box was color locked or not
+        isBoxColorLocked[boxIndex - 1] = !(isBoxColorLocked[boxIndex - 1]);
+
+        if (isBoxColorLocked[boxIndex - 1]) { // Box is color locked so lock button should be visible when not hovering on the div as well.
     
             lockButton.style.visibility = "visible";
+
         }
-        else if (static[boxIndex - 1] === 1) { 
-            static[boxIndex - 1] = 0;
-            
+        else { 
+                        
             lockButton.style.removeProperty("visibility"); //? Removed the property set in the above IF-block
+
         }
         
     }
