@@ -5,45 +5,45 @@ Function for adding a color box
 
 */
 
-let numOfBoxes = 5;
+let numberOfBoxes = 5;
 
-function hexGen() { // This function returns a string like "#287EDF" which can be used to set the backgroundColor of an element.
-    let hex = "#";
+function generateHexCode() { // This function returns a string like "#287EDF" which can be used to set the backgroundColor of an element.
+    let hexCode = "#";
     let digit;
     for(let index = 1; index <= 6; index++) {
         digit = Math.floor(Math.random() * 16);
         if( (10 <= digit) && (digit <= 15) ) {
             digit = String.fromCharCode(digit + 65 - 10); // For converting numbers from '10' to '15' to the hexadecimal digits 'A' to 'F'
         }
-        hex += digit;
+        hexCode += digit;
     }
-    return hex;
+    return hexCode;
 }
 
-function hexInvert(hexCode) {
+function invertHexCode(hexCode) {
     let invertedHexCode = "#";
-    let invertDigit;
+    let invertedDigit;
   
     for(let digit = 1; digit <= 6; digit++) {
         if ( ( 65 <= hexCode.charCodeAt(digit) ) && ( hexCode.charCodeAt(digit) <= 70 ) ) {
-            invertDigit = 15 - ( (hexCode[digit]).charCodeAt(0) - 65 + 10 );
+            invertedDigit = 15 - ( (hexCode[digit]).charCodeAt(0) - 65 + 10 );
         }
         else {
-            invertDigit = 15 - parseInt(hexCode[digit]);
+            invertedDigit = 15 - parseInt(hexCode[digit]);
             
-            if (invertDigit >= 10) {
-              invertDigit = String.fromCharCode(invertDigit + 65 - 10);
+            if (invertedDigit >= 10) {
+              invertedDigit = String.fromCharCode(invertedDigit + 65 - 10);
             };          
         }
   
-        invertedHexCode += invertDigit;
+        invertedHexCode += invertedDigit;
   
     }
     return invertedHexCode;
   }
 
 // Function for checking whether the color is too dark for black text to be visible.
-function darknessTest(hexCode) {
+function testDarkness(hexCode) {
     let sum = 0;
 
     for(let digit = 1; digit <= 6; digit++) {
@@ -63,11 +63,9 @@ function darknessTest(hexCode) {
     }
 }
 
-// Function and Array which tells us whether to keep the color of a particular div static or not.
-
-let isBoxColorLocked = Array(numOfBoxes).fill(false); 
-// 0 indicates element won't be kept static. 
-// 1 indicates element will be kept static.
+let isBoxColorLocked = Array(numberOfBoxes).fill(false); 
+// 0 indicates a particular box is NOT color locked. 
+// 1 indicates a particular box is color locked. 
 
 
 function palletteChange() {
@@ -75,14 +73,14 @@ function palletteChange() {
     let div;
     let fontColor;    
 
-    for(let boxIndex = 1; boxIndex <= numOfBoxes; boxIndex++) {
+    for(let boxIndex = 1; boxIndex <= numberOfBoxes; boxIndex++) {
         
         if(isBoxColorLocked[boxIndex - 1]) {
             continue;
         }
 
-        hexAssign = hexGen();
-        hexInvertAssign = hexInvert(hexAssign);
+        hexAssign = generateHexCode();
+        hexInvertAssign = invertHexCode(hexAssign);
         
         div = document.getElementById("color-box-" + boxIndex);
 
@@ -103,7 +101,7 @@ function palletteChange() {
         */
 
         // TODO : Can steps be reduced here
-        if(darknessTest(hexAssign)) {
+        if(testDarkness(hexAssign)) {
             fontColor = "white";
         }
         else {
@@ -113,7 +111,8 @@ function palletteChange() {
         div = document.getElementById("color-box-" + boxIndex);
         div.style.color = fontColor;
 
-        // We have to change colors separately for the icons, because font properties of text inside buttons i s
+
+        //* We have to change colors separately for the icons, because font properties of text inside buttons is independent of the font colors outside
 
         div = document.getElementById("lock-" + boxIndex);
         div.style.color = fontColor;
@@ -137,7 +136,7 @@ document.addEventListener("keydown", function(event) {
 
 let hexCode;
 
-for(let boxIndex = 1; boxIndex <= numOfBoxes; boxIndex++) {
+for(let boxIndex = 1; boxIndex <= numberOfBoxes; boxIndex++) {
     
     // We have declared the copyButton variable inside the for-loop, so that each iteration of the for-loop has a separate copyButton variable, and each box has a separate variable, (pointing to that box in the DOM) in the lexical environment of its handler function
 
@@ -151,14 +150,20 @@ for(let boxIndex = 1; boxIndex <= numOfBoxes; boxIndex++) {
 
 // for-loop for adding event listeners for lock-button clicks. The event is handled by 
 
-for(let boxIndex = 1; boxIndex <= numOfBoxes; boxIndex++) {
+for(let boxIndex = 1; boxIndex <= numberOfBoxes; boxIndex++) {
     
     // We have declared the lockButton variable inside the for-loop, so that each iteration of the for-loop has a separate lockButton variable, and the event listener of each box has a separate variable in the lexical environment of its handler function `LockUnlock`
     const lockButton = document.getElementById("lock-" + boxIndex);    
+    
+    const lockedIcon = lockButton.querySelector(".fa-lock")
+    const unlockedIcon = lockButton.querySelector(".fa-lock-open")
+
+    //? We could've also use these selectors joined by combinators
+    // const lockedIcon = document.querySelector("#lock-" + boxIndex + " > .fa-lock");
+    // const unlockedIcon = document.querySelector("#lock-" + boxIndex + " > .fa-lock-open");
 
     function LockUnlock() {
         
-        // const lockButton = document.getElementById("lock-" + box);
 
         lockButton.blur(); // Remove focus after click
         
@@ -168,12 +173,17 @@ for(let boxIndex = 1; boxIndex <= numOfBoxes; boxIndex++) {
         if (isBoxColorLocked[boxIndex - 1]) { // Box is color locked so lock button should be visible when not hovering on the div as well.
     
             lockButton.style.visibility = "visible";
+                        
+            unlockedIcon.style.display = "none";
+            lockedIcon.style.display = "block";
 
         }
         else { 
                         
             lockButton.style.removeProperty("visibility"); //? Removed the property set in the above IF-block
-
+            
+            unlockedIcon.style.display = "block";
+            lockedIcon.style.display = "none";
         }
         
     }
