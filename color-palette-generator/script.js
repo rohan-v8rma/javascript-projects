@@ -20,27 +20,27 @@ function generateHexCode() { // This function returns a string like "#287EDF" wh
     return hexCode;
 }
 
-function invertHexCode(hexCode) {
-    let invertedHexCode = "#";
-    let invertedDigit;
+// function invertHexCode(hexCode) {
+//     let invertedHexCode = "#";
+//     let invertedDigit;
   
-    for(let digit = 1; digit <= 6; digit++) {
-        if ( ( 65 <= hexCode.charCodeAt(digit) ) && ( hexCode.charCodeAt(digit) <= 70 ) ) {
-            invertedDigit = 15 - ( (hexCode[digit]).charCodeAt(0) - 65 + 10 );
-        }
-        else {
-            invertedDigit = 15 - parseInt(hexCode[digit]);
+//     for(let digit = 1; digit <= 6; digit++) {
+//         if ( ( 65 <= hexCode.charCodeAt(digit) ) && ( hexCode.charCodeAt(digit) <= 70 ) ) {
+//             invertedDigit = 15 - ( (hexCode[digit]).charCodeAt(0) - 65 + 10 );
+//         }
+//         else {
+//             invertedDigit = 15 - parseInt(hexCode[digit]);
             
-            if (invertedDigit >= 10) {
-              invertedDigit = String.fromCharCode(invertedDigit + 65 - 10);
-            };          
-        }
+//             if (invertedDigit >= 10) {
+//               invertedDigit = String.fromCharCode(invertedDigit + 65 - 10);
+//             };          
+//         }
   
-        invertedHexCode += invertedDigit;
+//         invertedHexCode += invertedDigit;
   
-    }
-    return invertedHexCode;
-  }
+//     }
+//     return invertedHexCode;
+//   }
 
 // Function for checking whether the color is too dark for black text to be visible.
 function testDarkness(hexCode) {
@@ -80,7 +80,8 @@ function palletteChange() {
         }
 
         hexAssign = generateHexCode();
-        hexInvertAssign = invertHexCode(hexAssign);
+        
+        // fontColor = invertHexCode(hexAssign);
         
         div = document.getElementById("color-box-" + boxIndex);
 
@@ -99,7 +100,7 @@ function palletteChange() {
 
         ? This is because if we set the textContent property of a particular element, all child text nodes are replaced by only one new text node.
         */
-
+        
         // TODO : Can steps be reduced here
         if(testDarkness(hexAssign)) {
             fontColor = "white";
@@ -138,13 +139,25 @@ let hexCode;
 
 for(let boxIndex = 1; boxIndex <= numberOfBoxes; boxIndex++) {
     
-    // We have declared the copyButton variable inside the for-loop, so that each iteration of the for-loop has a separate copyButton variable, and each box has a separate variable, (pointing to that box in the DOM) in the lexical environment of its handler function
+    // We have declared the copyButton variable inside the for-loop, so that each iteration of the for-loop has a separate copyButton variable, and each box has a separate variable, (pointing to that box in the DOM) in the lexical environment of its handler function    
+   
+    const copyButton = document.querySelector("#copy-" + boxIndex);
+    
+    const copiedPopup = document.querySelector("#button-container-" + boxIndex + " .pop-up-text");
 
-    const copyButton = document.getElementById("copy-" + boxIndex);
+    function togglePopup() {
+        copiedPopup.classList.toggle("show");
+    };
 
     copyButton.addEventListener("click", function() {
         hexCode = document.getElementById("hex-"+boxIndex).innerText;
+        
         navigator.clipboard.writeText(hexCode);
+        
+        togglePopup();  
+
+        setTimeout(togglePopup, 1000);
+
     })
 }
 
