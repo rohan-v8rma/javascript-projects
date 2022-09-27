@@ -93,6 +93,7 @@ button {
 }
 
 .button-container .pop-up-text {
+    color: white;
     font-size: medium;
     
     position: relative;
