@@ -108,9 +108,16 @@ button {
     text-align: center;
     padding: 2px 2px;
     z-index: 1;
-    /* box-shadow: 0.2rem 0.2rem 0 rgba(70, 70, 70); */
 
     font-family: Inter;
+
+    /* Glassmorphism Effect */
+    background: rgba( 0, 0, 0, 0.6 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4.5px );
+    -webkit-backdrop-filter: blur( 4.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
   
   /* Popup arrow */
@@ -122,7 +129,7 @@ button {
     left: 100%;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent transparent black;
+    border-color: transparent transparent transparent rgba( 0, 0, 0, 0.3 );
   }
   
 /* Toggle this class - hide and show the popup */
@@ -134,6 +141,33 @@ button {
     transition-duration: 0.25s;    
 }  
   
+.reload {
+    font-family: Inter;
+
+    z-index: 1;
+    position: absolute;
+    left : 50%;
+    top : 60%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 3.5rem;
+    margin-top: -1.75rem;
+
+    width: 7rem;
+    margin-left: -3.5rem;
+    
+    /* Glassmorphism Effect */
+    background: rgba( 255, 255, 255, 0.2 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4.5px );
+    -webkit-backdrop-filter: blur( 4.5px );
+    border-radius: 15px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
 
 /* DESIGN Mobile first */
 @media only screen and (min-width: 800px) and (max-height: 1440px) {
@@ -179,5 +213,11 @@ button {
         border-color: black transparent transparent transparent;
       }
 
+    .reload {
+        visibility: hidden;
+    }
+
 }
+
+
 

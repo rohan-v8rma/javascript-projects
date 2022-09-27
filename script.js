@@ -133,6 +133,10 @@ document.addEventListener("keydown", function(event) {
     }
 })
 
+// Reload button for mobile devices
+const reloadButton = document.querySelector(".reload");
+reloadButton.addEventListener("click", palletteChange);
+
 // for-loop for adding event listeners for copy-button clicks. The event is handled by writing the hex-code of the visible color to the user's clipboard.
 
 let hexCode;
