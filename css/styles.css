@@ -8,11 +8,33 @@
 }
 /* We have used the CSS universal selector here and removed default padding and margin from all classes here */
 
+.instruct-text {
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-family: "Inter";
+    font-weight: 550;
+    background-color: rgb(22, 23, 24);
+    color: rgb(137, 128, 116);
+    
+}
+
+#instruct-text-1 {
+    display: flex;
+}
+
+#instruct-text-2 {
+    display: none;
+}
+
+
 
 .color-palette-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 95vh;
     width: auto;
 }
 
@@ -147,7 +169,7 @@ button {
     z-index: 1;
     position: fixed;
     left : 50vw;
-    top : 50vh;
+    top : 53vh;
 
     display: flex;
     justify-content: center;
@@ -215,6 +237,14 @@ button {
 
     .reload {
         visibility: hidden;
+    }
+
+    #instruct-text-1 {
+        display: none;
+    }
+    
+    #instruct-text-2 {
+        display: flex;
     }
 
 }
