@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Fascinate&display=swap');
+/* This is a google font URL. Any font from https://fonts.google.com/ can be chosen */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* We have used the CSS universal selector here and removed default padding and margin from all classes here */
+
+body {
+    min-height: 100vh;
+
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    color: black;
+    background-color: white;
+    
+
+    text-align: center;
+
+    display: flex;
+    /* We have made the body as a flex container here, making the 'quote-container' div within it, a responsive flexbox. 
+    * The 'quote-container' div contains multiple other divs (by-default block level elements) which occupy as much space as needed and the 'quote-container' growing or shrinking when required. 
+    TODO: If block-level elements are contained within a flexbox, is it still as responsive as making that flexbox as a FLEX CONTAINER? */
+
+    flex-direction: column;
+    justify-content: center;
+    /* This keeps the only element ('quote-container' div) in the center of the main axis (vertical) */
+    
+    align-items: center;
+    /* TODO: Find out how this works. If a div contains a span element containing text and an img element, are both elements centered horizontally because of this? */    
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' width='80' height='80'%3E%3Cg fill='%231e00ff' fill-opacity='0.35'%3E%3Cpath d='M0 0h80v80H0V0zm20 20v40h40V20H20zm20 35a15 15 0 1 1 0-30 15 15 0 0 1 0 30z' opacity='.5'%3E%3C/path%3E%3Cpath d='M15 15h50l-5 5H20v40l-5 5V15zm0 50h50V15L80 0v80H0l15-15zm32.07-32.07l3.54-3.54A15 15 0 0 1 29.4 50.6l3.53-3.53a10 10 0 1 0 14.14-14.14zM32.93 47.07a10 10 0 1 1 14.14-14.14L32.93 47.07z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+}
+
+.quote-container {
+
+    width: auto;
+    max-width: 900px;
+    /*?Why?
+    We did this so that the quote doesn't stretch out too much. */
+
+    box-sizing: border-box; 
+    /* this property helps accomodate any padding/margin we add into the specified width/height for the div, which is 100vh in this case */
+    /* height: 50vh;  */
+    padding: 5% 10%;  
+    /* used to center everything */
+
+
+    /* display: flex; */
+    
+    /* margin: 25vh 10%; */
+
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 10px 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.quote-text {
+    font-size: 2.75rem;
+} 
+/* 
+TODO: how do we center the quote-text vertically within the space its flex box is occupying?
+*/
+
+.long-quote {
+    font-size: 2rem;
+}
+.fa-quote-left {
+    font-size: 4rem;
+}
+/*
+* Here, we are directly accessing the 'font-awesome' icon class.
+
+Observe how the 'icons' obtained from the font awesome are dependent on the font-size, when in actuality they are images.
+*/
+
+.quote-author {
+    margin-top: 1rem;
+    font-size: 2rem;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.button-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+button {
+    cursor: pointer;
+    /* This makes the cursor appear as a 'hand with a finger pointing' upon hovering */
+    font-size: 1.2rem;
+    height: 2.5rem;
+    /* This is useful for keeping the size of the buttons in accordance with the root font size which is dynamic in nature across devices. */
+    border: none;
+    border-radius: 10px;
+    color: white;
+    /*! background-color: #333; */
+    background: #333;
+    /* This is a CSS property which can take numerous parameters for modifying the background characteristics, as opposed to just the `background-color` property */
+    padding: 0.5rem 1.8rem;
+    box-shadow: 0 0.3rem 0 rgba(130, 130, 130, 0.65);
+    /* Only a vertical offset given */
+}
+
+/* THe code below gives a cool transition where button is pressed immediately but slowly rises upon release
+? This is because, when we click on a button, it becomes :active and transition-duration becomes 0, immediately showing the change where the button appears to be depressed into the page.
+? Upon release, it immediately goes back to :hover and transition duration becomes 0.5 seconds, leading to the button slowly rising back to its original position.
+*/
+
+button:hover {
+    transition-duration: 0.5s;
+    color: #333;
+    background: white;
+    /* padding: 0.5rem 1.8rem; */
+    box-shadow: 0 0.3rem 0 rgba(70, 70, 70);
+}
+
+button:active {
+    transition-duration: 0s;
+    transform: translate(0, 0.3rem);
+    box-shadow: 0 0.1rem 0 rgba(70, 70, 70);
+}
+
+.twitter-button:hover {
+    color: #3ba1f3;
+}
+/* Media Query */
+
+/* *Note how our max width is 900px. 
+On devices with a width smaller than 1080px, i.e., a regular tablet or smaller, the quote-container box would look squished, which is why we'll use a media query to add a margin to the quote-container in that case
+
+TODO: Does orientation of a tablet change its width?
+*/
+
+@media only screen and (max-width: 1080px) {
+    .quote-container{
+        margin: auto 5vw;
+    }
+    /* Vertical margin is set to auto and Horizontal margin is set to 5vw */
+
+}

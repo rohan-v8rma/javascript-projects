@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html class="no-margin-and-padding" classlang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+    <link rel="icon" type="image/png" href="https://www.google.com/s2/favicons?domain=css-tricks.com">
+    <!-- 
+        Here, we are using google's favicon service to get the favicon of any pre-existing website
+        by entering the name of the website as the value of the `domain` key in the query string of the below url.
+    -->
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!--
+        We are using icons that we are obtaining from a content delivery network.
+        ? The syntax for accessing them is:
+        ? <i class="name of icon" />
+        * Like this:
+        ? <i class="fab fa-500px" />
+
+        ! Also note that the size of these icons is influenced by the 'font-size' property, even though these are SVG images.
+    -->
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    
+    
+    <script src="script.js"></script>
+    <!-- It is important for the script tag to be placed as the last thing in the body tag. 
+    
+    Otherwise, the JS would run before the elements are rendered to the DOM.
+    
+    Resultingly, the array we create/any other operation we perform from the HTMLCollection of elements of a certain class name would be empty because the DOM wouldn't be containing the required elements at the time of array creation. -->
+</body>
+</html>
